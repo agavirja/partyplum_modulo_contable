@@ -8,3 +8,5 @@ SQLAlchemy
 streamlit
 mysql_connector_repackaged
 mysql-connector-python
+openpyxl
+streamlit_aggrid
