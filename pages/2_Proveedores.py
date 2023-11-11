@@ -183,7 +183,8 @@ def proveedores():
         st.selectbox('Por nombre de contacto', options=st.session_state.lista_contacto_modulo_proveedores,key='contacto_modulo_proveedores',on_change=contactochange_modulo_proveedores)
 
     datastockagrid = st.session_state.data_modulo_proveedores.copy()
-    gb = GridOptionsBuilder.from_dataframe(datastockagrid)
+    variables = [x for x in ['id', 'nombre_razon_social', 'nombre_comercial', 'tipo_identificacion', 'identificacion', 'nombre_contacto', 'telefono1', 'telefono2', 'email', 'ciudad', 'direccion'] if x in datastockagrid]
+    gb = GridOptionsBuilder.from_dataframe(datastockagrid[variables])
     gb.configure_default_column(cellStyle={'color': 'grey', 'font-size': '20px'}, resizable=True, filterable=True, sortable=True, suppressMenu=True, wrapHeaderText=True, autoHeaderHeight=True)
     gb.configure_selection(selection_mode="single", use_checkbox=True)
     
@@ -205,7 +206,7 @@ def proveedores():
     }
     
     response = AgGrid(
-        datastockagrid,
+        datastockagrid[variables],
         gridOptions=gridOptions,
         custom_css=custom_css,
         columns_auto_size_mode="FIT_CONTENTS",

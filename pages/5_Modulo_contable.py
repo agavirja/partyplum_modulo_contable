@@ -62,6 +62,8 @@ with col2:
 st.write('---')
 st.write('Informacion gastos a terceros')
 datastockagrid = st.session_state.data_facturacion_terceros.copy()
+
+
 datastockagrid.index = range(len(datastockagrid))
 
 idd = datastockagrid.index>=0
@@ -71,7 +73,8 @@ if fecha_maxima is not None:
     idd = (idd) & (datastockagrid['fecha_pago']<=fecha_maxima.strftime('%Y-%m-%d'))
         
 datastockagrid = datastockagrid[idd]
-gb = GridOptionsBuilder.from_dataframe(datastockagrid)
+variables      = [x for x in ['id', 'fecha_factura', 'tipo_gasto', 'nombre_razon_social', 'nombre_comercial', 'tipo_identificacion', 'identificacion', 'documento1', 'documento2', 'documento3', 'valor_factura', 'iva', 'retencion_fuente', 'retencion_ica', 'pagada', 'forma_pago', 'fecha_pago', 'comprobante_pago'] if x in datastockagrid]
+gb = GridOptionsBuilder.from_dataframe(datastockagrid[variables])
 gb.configure_default_column(cellStyle={'color': 'grey', 'font-size': '20px'}, resizable=True, filterable=True, sortable=True, suppressMenu=True, wrapHeaderText=True, autoHeaderHeight=True)
 gb.configure_selection(selection_mode="single", use_checkbox=True)
 
@@ -93,7 +96,7 @@ custom_css = {
 }
 
 response = AgGrid(
-    datastockagrid,
+    datastockagrid[variables],
     gridOptions=gridOptions,
     custom_css=custom_css,
     columns_auto_size_mode="FIT_CONTENTS",
@@ -139,7 +142,8 @@ if fecha_maxima is not None:
     idd = (idd) & (datastockagrid['fecha_factura']<=fecha_maxima.strftime('%Y-%m-%d'))
 
 datastockagrid = datastockagrid[idd]
-gb = GridOptionsBuilder.from_dataframe(datastockagrid)
+variables      = [x for x in ['id', 'fecha_factura', 'valor_factura', 'factura', 'valor_paquete', 'valor_recaudo_terceros', 'iva', 'ganancia', 'fecha_pago1', 'valor_pago1', 'pago1', 'fecha_pago2', 'valor_pago2', 'pago2', 'fecha_pago3', 'valor_pago3', 'pago3', 'fecha_pago4', 'valor_pago4', 'pago4'] if x in datastockagrid]
+gb = GridOptionsBuilder.from_dataframe(datastockagrid[variables])
 gb.configure_default_column(cellStyle={'color': 'grey', 'font-size': '20px'}, resizable=True, filterable=True, sortable=True, suppressMenu=True, wrapHeaderText=True, autoHeaderHeight=True)
 gb.configure_selection(selection_mode="single", use_checkbox=True)
 
@@ -161,7 +165,7 @@ custom_css = {
 }
 
 response = AgGrid(
-    datastockagrid,
+    datastockagrid[variables],
     gridOptions=gridOptions,
     custom_css=custom_css,
     columns_auto_size_mode="FIT_CONTENTS",

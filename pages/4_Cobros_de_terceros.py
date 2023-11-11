@@ -307,7 +307,6 @@ def cuentas_generales():
 
     datastockagrid = st.session_state.data_terceros_edit.copy()
     variables      = [x for x in ['id','fecha_factura', 'tipo_gasto', 'nombre_razon_social', 'nombre_comercial', 'tipo_identificacion', 'identificacion', 'valor_factura', 'iva', 'retencion_fuente', 'retencion_ica', 'pagada', 'forma_pago', 'fecha_pago'] if x in datastockagrid]
-
     gb = GridOptionsBuilder.from_dataframe(datastockagrid[variables])
     gb.configure_default_column(cellStyle={'color': 'grey', 'font-size': '20px'}, resizable=True, filterable=True, sortable=True, suppressMenu=True, wrapHeaderText=True, autoHeaderHeight=True)
     gb.configure_selection(selection_mode="single", use_checkbox=True)

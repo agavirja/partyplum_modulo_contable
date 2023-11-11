@@ -145,7 +145,8 @@ def clientes():
         st.selectbox('Por telefono', options=st.session_state.lista_telefonos_modulo_clientes,key='telefono_modulo_clientes',on_change=telefonochange_modulo_clientes)
 
     datastockagrid = st.session_state.data_modulo_clientes.copy()
-    gb = GridOptionsBuilder.from_dataframe(datastockagrid)
+    variables = [x for x in ['id','nombre_completo','tipo_identificacion','identificacion','telefono1', 'telefono2','email'] if x in datastockagrid]
+    gb = GridOptionsBuilder.from_dataframe(datastockagrid[variables])
     gb.configure_default_column(cellStyle={'color': 'grey', 'font-size': '20px'}, resizable=True, filterable=True, sortable=True, suppressMenu=True, wrapHeaderText=True, autoHeaderHeight=True)
     gb.configure_selection(selection_mode="single", use_checkbox=True)
     
@@ -167,7 +168,7 @@ def clientes():
     }
     
     response = AgGrid(
-        datastockagrid,
+        datastockagrid[variables],
         gridOptions=gridOptions,
         custom_css=custom_css,
         columns_auto_size_mode="FIT_CONTENTS",
