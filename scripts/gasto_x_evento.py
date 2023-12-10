@@ -13,7 +13,7 @@ password = st.secrets["password_bigdata"]
 host     = st.secrets["host_bigdata"]
 schema   = 'partyplum'
 
-lista_categorias = ['Flores','Impresiones','Cajas','Ponque','Postres']
+lista_categorias = ['Aguas', 'Alquileres', 'Cajas', 'Domicilios', 'Flores', 'Impresiones', 'Personal', 'Postres', 'Reposteria', 'Transporte']
 
 @st.cache_data
 def dataproveedores():
